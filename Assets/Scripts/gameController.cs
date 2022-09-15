@@ -14,16 +14,20 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI CounterText; //Counter Text
     public int Credits = 0; //number of credits
     public GameObject GridManager;
+   
 
     private int randomNumbers;
     public int secondsToShowTheBalls;
     public List<int> list = new List<int>();
     private IEnumerator coroutine;
 
- 
+    
 
     public int TotalToSort; //sum the number of coluns and lines choosed on gridmanager;
+    public GameObject SortedManager;
 
+    public GameObject sortedBallObj;
+    private GameObject sortedBall;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +58,7 @@ public class GameController : MonoBehaviour
         Credits++; //adding +1 to credits
         CreditText.text = "Credits: "+Credits.ToString(); //change the credits text
         if(Credits > 0){
+            CanvasItems[1].SetActive(true);
             //verify if the credits is avaliable
             CanvasItems[3].SetActive(false); //Hide insert credit button
             TitleText.text = "Now its time to generate your card"; //change the title text sending instructions
@@ -89,6 +94,11 @@ public class GameController : MonoBehaviour
             randomNumbers = Random.Range(GridManager.GetComponent<GridManager>().MaxNumber, GridManager.GetComponent<GridManager>().MinNumber);
             list.Add(randomNumbers);
             teste(randomNumbers);
+
+            //instantiating the balls objects to show the numbers to the user
+            GameObject sortedBall = Instantiate(sortedBallObj) as GameObject;
+            sortedBall.transform.SetParent(SortedManager.transform);
+            sortedBall.transform.localPosition  = new Vector2(i, 0f);
         }
     }
 

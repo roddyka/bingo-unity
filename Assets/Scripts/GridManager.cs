@@ -31,29 +31,36 @@ public class GridManager : MonoBehaviour
         if(GameController.GetComponent<GameController>().Credits >= 1){
             GameController.GetComponent<GameController>().canvasItemsOnGeneratingCards();
             
+                Debug.Log(list.Count);
                 // Preciso verificar se a lista ja contem o numero e busar na lista or numeros em ordem para criar a minha carta de bingo
+                while (list.Count < 15)
+                {
+                    randomNumbers = Random.Range(MaxNumber, MinNumber);
+                    if(!list.Contains(randomNumbers)){
+                        list.Add(randomNumbers);
+                        Debug.Log(list.Count);
+                    }
+                }
 
+                //order the list
+                list = list.OrderBy(x => x).ToList();
+
+                
                 //original and working
-
-                for (int i = 0; i < Columns; i++){ //for X
+                for (int x = 0; x < Columns; x++){ //for X
                     for (int y = 0; y < Rows; y++){ //for Y
                         
-                            randomNumbers = Random.Range(MaxNumber, MinNumber);
-                            // while (!list.Contains(randomNumbers)) //verify if the list contain the number
-                            // {
-                                list.Add(randomNumbers);
-                                GameObject square = Instantiate(CardSquarePrefab) as GameObject;
-                                square.transform.SetParent(parent.transform);
+                            // randomNumbers = Random.Range(MaxNumber, MinNumber);
+
+                            //     list.Add(randomNumbers);
+                                GameObject square = Instantiate(CardSquarePrefab) as GameObject; //instantiate my object
+                                square.transform.SetParent(parent.transform); //set as parent of my parent object
                                 
-                                square.GetComponent<SquareValues>().Value = randomNumbers;
-                                // square.GetComponent<SquareValues>().Value = randomNumbers;
-                                square.transform.localPosition  = new Vector3(i,y, 0f);
-                            // }
+                                square.GetComponent<SquareValues>().Value = list[x*Rows+y]; //add value to my card
+                                square.transform.localPosition  = new Vector2(x,-y); //create the numbers position
+
                         }
                     }
-
-                    //order the list
-                   list = list.OrderBy(x => x).ToList();
 
                 }
         }
