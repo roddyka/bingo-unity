@@ -7,6 +7,8 @@ public class SquareValues : MonoBehaviour
 {
     public int Value;
     public GameObject checkedImage;
+
+    public bool checkedInfo;
     // Start is called before the first frame update
     void Start()
     {

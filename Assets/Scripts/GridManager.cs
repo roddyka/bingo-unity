@@ -23,7 +23,7 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         SumColumnAndRow = Columns * Rows;
-        Debug.Log(SumColumnAndRow);
+        // Debug.Log(SumColumnAndRow);
     }
 
     public void generateCard(){
@@ -31,14 +31,14 @@ public class GridManager : MonoBehaviour
         if(GameController.GetComponent<GameController>().Credits >= 1){
             GameController.GetComponent<GameController>().canvasItemsOnGeneratingCards();
             
-                Debug.Log(list.Count);
+                // Debug.Log(list.Count);
                 // Preciso verificar se a lista ja contem o numero e busar na lista or numeros em ordem para criar a minha carta de bingo
                 while (list.Count < 15)
                 {
                     randomNumbers = Random.Range(MaxNumber, MinNumber);
                     if(!list.Contains(randomNumbers)){
                         list.Add(randomNumbers);
-                        Debug.Log(list.Count);
+                        // Debug.Log(list.Count);
                     }
                 }
 
@@ -64,21 +64,14 @@ public class GridManager : MonoBehaviour
 
                 }
         }
+
+        public void clearList(){
+            list.Clear();
+        }
+
+        public void clearParent(){
+            //limpar parents dos numeros sorteados do card
+        }
 }
 
-    // public void generateBalls(){
-    //     for (int i = 0; i < Columns; i++){ //for X
-    //         for (int y = 0; y < Rows; y++){ //for Y
-                
-    //             randomNumbers = Random.Range(MaxNumber, MinNumber);
-    //             list.Add(randomNumbers);
-                
-    //             GameObject square = Instantiate(CardSquarePrefab) as GameObject;
-    //             square.transform.SetParent(parent.transform);
-                
-    //             square.GetComponent<SquareValues>().Value = randomNumbers;
-    //             square.transform.localPosition  = new Vector3(i,y, 0f);
-    //         }
-    //     }
-    // }
 
