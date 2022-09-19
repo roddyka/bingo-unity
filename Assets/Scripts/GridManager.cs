@@ -18,60 +18,63 @@ public class GridManager : MonoBehaviour
 
     public List<int> list = new List<int>();
     // public List<int> listOrder = List.Orderby(e => e).ToList();
-    
+
     // Start is called before the first frame update
     void Start()
     {
         SumColumnAndRow = Columns * Rows;
-        // Debug.Log(SumColumnAndRow);
     }
 
-    public void generateCard(){
+    public void generateCard()
+    {
         // GameController.instance.Credits - for some reason i cant use this - need to be checked
-        if(GameController.GetComponent<GameController>().Credits >= 1){
+        if (GameController.GetComponent<GameController>().Credits >= 1)
+        {
             GameController.GetComponent<GameController>().canvasItemsOnGeneratingCards();
-            
-                // Debug.Log(list.Count);
-                // Preciso verificar se a lista ja contem o numero e busar na lista or numeros em ordem para criar a minha carta de bingo
-                while (list.Count < 15)
+
+            // Preciso verificar se a lista ja contem o numero e busar na lista or numeros em ordem para criar a minha carta de bingo
+            while (list.Count < 15)
+            {
+                randomNumbers = Random.Range(MaxNumber, MinNumber);
+                if (!list.Contains(randomNumbers))
                 {
-                    randomNumbers = Random.Range(MaxNumber, MinNumber);
-                    if(!list.Contains(randomNumbers)){
-                        list.Add(randomNumbers);
-                        // Debug.Log(list.Count);
-                    }
+                    list.Add(randomNumbers);
                 }
+            }
 
-                //order the list
-                list = list.OrderBy(x => x).ToList();
+            //order the list
+            list = list.OrderBy(x => x).ToList();
 
-                
-                //original and working
-                for (int x = 0; x < Columns; x++){ //for X
-                    for (int y = 0; y < Rows; y++){ //for Y
-                        
-                            // randomNumbers = Random.Range(MaxNumber, MinNumber);
+            int count = 0;
+            //original and working
+            for (int y = 0; y < Rows; y++)
+            { //for Y
+                for (int x = 0; x < Columns; x++)
+                { //for X
+                    var listInfo = list[count];
+                    count++;
 
-                            //     list.Add(randomNumbers);
-                                GameObject square = Instantiate(CardSquarePrefab) as GameObject; //instantiate my object
-                                square.transform.SetParent(parent.transform); //set as parent of my parent object
-                                
-                                square.GetComponent<SquareValues>().Value = list[x*Rows+y]; //add value to my card
-                                square.transform.localPosition  = new Vector2(x,-y); //create the numbers position
+                    GameObject square = Instantiate(CardSquarePrefab) as GameObject; //instantiate my object
+                    square.transform.SetParent(parent.transform); //set as parent of my parent object
 
-                        }
-                    }
+                    square.GetComponent<SquareValues>().Value = listInfo; //add value to my card
+                    square.transform.localPosition = new Vector3(x, -y, 0f); //create the numbers position
 
                 }
-        }
+            }
 
-        public void clearList(){
-            list.Clear();
         }
+    }
 
-        public void clearParent(){
-            //limpar parents dos numeros sorteados do card
+    //Clear the card list and destroy parent objects
+    public void destroyObjectList()
+    {
+        list.Clear();
+        foreach (Transform child in parent.transform)
+        {
+            Destroy(child.gameObject);
         }
+    }
 }
 
 

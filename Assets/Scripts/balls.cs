@@ -17,8 +17,6 @@ public class balls : MonoBehaviour
     }
 
     public void updateValueBall(){
-        // Debug.Log("value is:"+Value);
-        // Debug.Log("Sprite value is:"+(Value - 1));
         this.GetComponent<SpriteRenderer>().sprite = ball[Value - 1];
     }
 
