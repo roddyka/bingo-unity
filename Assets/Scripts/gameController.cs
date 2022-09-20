@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
         CreditText.text = "Credits: " + Credits.ToString();
 
         Counter = PlayerPrefs.GetInt("counter");
-        CounterText.text = "Credits: " + Credits.ToString();
+        CounterText.text = "Moves: " + Counter.ToString();
 
         TitleText.text = "OH GOD ITS BINGO DAY!";
 
