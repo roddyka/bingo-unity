@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - cardboard
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Square
+    uniqueID: 2249683305
+    locked: 0
+  - name: CardBoard
+    uniqueID: 3666576801
     locked: 0
